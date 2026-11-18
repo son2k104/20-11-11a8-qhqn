@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Great+Vibes&display=swap");
+
 :root {
   --envelope-x: clamp(230px, 80vw, 310px);
   --envelope-y: calc(var(--envelope-x) * 0.68);
@@ -29,7 +31,6 @@
     --flap-bottom: clamp(44px, 4.5vw, 68px);
   }
 }
-
 html {
   font-size: clamp(16px, 0.35vw + 14px, 20px);
 }
@@ -43,7 +44,6 @@ html {
   margin: 0;
   overflow: hidden;
   height: 100dvh;
-  contain: layout style;
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
@@ -263,6 +263,14 @@ html {
   font-family: var(--letter-font);
   color: var(--letter-ink);
   background-color: var(--letter-bg);
+  background-image: repeating-linear-gradient(
+    to bottom,
+    #0000 0,
+    #0000 28px,
+    #bda98a0f 29px,
+    #0000 30px
+  );
+  background-attachment: local;
   box-shadow:
     inset 0 0 36px #dac9aa12,
     0 16px 30px -18px #8d74522b;
@@ -299,14 +307,6 @@ html {
   position: relative;
   flex: 1 0 auto;
   padding: var(--letter-padding);
-  background-color: var(--letter-bg);
-  background-image: repeating-linear-gradient(
-    to bottom,
-    #0000 0,
-    #0000 28px,
-    #bda98a0f 29px,
-    #0000 30px
-  );
 }
 
 .reveal-letter::before {
@@ -318,6 +318,7 @@ html {
     radial-gradient(120% 50% at 50% 0%, #cfb99310 0%, #0000 70%),
     radial-gradient(55% 120% at 0% 40%, #e3d2b50c 0%, #0000 70%),
     radial-gradient(55% 120% at 100% 40%, #e3d2b50c 0%, #0000 70%);
+  mix-blend-mode: multiply;
   opacity: 0.45;
 }
 
@@ -481,7 +482,6 @@ html {
   pointer-events: auto;
   overflow-y: auto;
   overscroll-behavior: contain;
-  will-change: auto;
 }
 
 @media (min-width: 768px) {
@@ -617,6 +617,7 @@ html {
   .memory-note--heart { right: 4%; top: 10%; font-size: 5.3cqw; }
   .wall-doodle--left { left: 21%; top: 22%; width: 7.5%; height: 30%; }
   .wall-doodle--right { right: 2%; top: 43%; width: 14.5%; height: 37%; }
+
 }
 
 .letter-ornaments { position: absolute; inset: 0; pointer-events: none; color: var(--letter-ornament); }

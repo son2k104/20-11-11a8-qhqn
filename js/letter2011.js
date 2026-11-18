@@ -17,8 +17,8 @@ const endpoint =
   "";
 const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-// Tốc độ chạy chữ: mỗi lần hiện 1 ký tự sau "speed" ms.
-// Thư dài ~1.200 ký tự => nội dung chạy khoảng 55-60 giây.
+// Tốc độ chạy chữ: mỗi lần hiện 1 ký tự sau "speed" ms (chunkSize luôn = 1 nếu maxDuration đủ lớn).
+// Thư dài ~1.200 ký tự => nội dung chạy khoảng 55-60 giây, đủ chậm để đọc theo.
 const TYPE_SPEED = {
   title: 70,
   content: 45,
@@ -133,78 +133,35 @@ const setTypingTarget = (el, isTyping) => {
   el.classList.toggle("is-typing", isTyping);
 };
 
-const wait = (ms) => new Promise((resolve) => {
-  if (ms <= 0) {
-    resolve();
-    return;
-  }
-  const startTime = performance.now();
-  const step = (now) => {
-    if (now - startTime >= ms) {
-      resolve();
-      return;
-    }
-    requestAnimationFrame(step);
-  };
-  requestAnimationFrame(step);
-});
+const wait = (ms) => new Promise((resolve) => window.setTimeout(resolve, ms));
 
-const typeText = (el, text, speed, maxDuration) => {
-  if (!el || !text) return Promise.resolve();
+const typeText = async (el, text, speed, maxDuration) => {
+  if (!el || !text) return;
 
   el.hidden = false;
   el.textContent = "";
   setTypingTarget(el, true);
 
   const characters = typeof Intl.Segmenter === "function"
-    ? Array.from(new Intl.Segmenter("vi", { granularity: "grapheme" }).segment(text), (item) => item.segment)
+    ? Array.from(new Intl.Segmenter("vi", { granularity: "grapheme" }).segment(text), item => item.segment)
     : Array.from(text);
-
-  if (characters.length === 0) {
-    setTypingTarget(el, false);
-    return Promise.resolve();
-  }
-
-  const totalDuration = Math.min(characters.length * speed, maxDuration);
-  const charInterval = totalDuration / characters.length;
+  const chunkSize = Math.max(1, Math.ceil(characters.length * speed / maxDuration));
   const textNode = document.createTextNode("");
   el.append(textNode);
+  for (let index = 0; index < characters.length; index += chunkSize) {
+    textNode.appendData(characters.slice(index, index + chunkSize).join(""));
 
-  return new Promise((resolve) => {
-    let startTime = null;
-    let currentIndex = 0;
+    scrollToBottom();
 
-    const frame = (now) => {
-      if (startTime === null) startTime = now;
-      const elapsed = now - startTime;
-      const targetIndex = Math.min(
-        characters.length,
-        Math.floor(elapsed / charInterval) + 1
-      );
+    await wait(speed);
+  }
 
-      if (targetIndex > currentIndex) {
-        textNode.appendData(characters.slice(currentIndex, targetIndex).join(""));
-        currentIndex = targetIndex;
-        scrollToBottom();
-      }
-
-      if (currentIndex >= characters.length) {
-        setTypingTarget(el, false);
-        resolve();
-        return;
-      }
-
-      requestAnimationFrame(frame);
-    };
-
-    requestAnimationFrame(frame);
-  });
+  setTypingTarget(el, false);
 };
 
 const writeLetter = async (letter) => {
   followTyping = !prefersReducedMotion;
   if (paper) paper.scrollTop = 0;
-
   if (prefersReducedMotion) {
     if (elements.title) {
       elements.title.textContent = letter.title;
