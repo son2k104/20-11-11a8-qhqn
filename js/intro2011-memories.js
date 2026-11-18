@@ -20,17 +20,17 @@
     {
       src: "assets/images/intro-1.jpg",
       alt: "Cả lớp chụp ảnh chung trong phòng học",
-      caption: "Những ngày bên nhau ♡"
+      caption: "Một khởi đầu mới là khi ...♡"
     },
     {
       src: "assets/images/intro-2.jpg",
       alt: "Các bạn mặc áo dài trắng chụp ảnh chung trước sân khấu",
-      caption: "Một thời áo trắng ♡"
+      caption: "Chúng ta cùng nhau cố gắng, yêu thương và thấu hiểu lẫn nhau ♡"
     },
     {
       src: "assets/images/intro-3.jpg",
       alt: "Cả lớp mặc áo xanh chụp ảnh chung ngoài sân trường",
-      caption: "Thanh xuân của chúng mình"
+      caption: " Cùng nhau tạo nên những kỷ niệm tươi đẹp với nhau ♡"
     }
   ];
 
