@@ -1,0 +1,58 @@
+.is-gift-preview body::after,
+.is-gift-preview dialog::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 119;
+  background: url("../assets/images/preview-watermark.svg") repeat center / 320px 220px;
+  pointer-events: none;
+  user-select: none;
+}
+
+.gift-preview-error button {
+  border: 1px solid #e5c0cf;
+  border-radius: 30px;
+  background: #fff;
+  color: #a3476b;
+  cursor: pointer;
+  font:
+    12px "Segoe UI",
+    Arial,
+    sans-serif;
+  padding: 8px 12px;
+}
+.gift-preview-error button:focus-visible {
+  outline: 3px solid #cc7399;
+  outline-offset: 3px;
+}
+.gift-preview-error {
+  position: fixed;
+  z-index: 121;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: min(420px, calc(100% - 40px));
+  padding: 28px;
+  text-align: center;
+  border-radius: 18px;
+  background: #fff8fb;
+  box-shadow: 0 20px 100px #57304750;
+  border: 1px solid #eac2d5;
+  color: #92516a;
+  font:
+    15px/1.7 "Segoe UI",
+    Arial,
+    sans-serif;
+}
+.gift-preview-error p {
+  margin: 0 0 20px;
+}
+.is-no-film #continueLetter {
+  display: none !important;
+}
+@media (max-width: 600px) {
+  .is-gift-preview body::after,
+  .is-gift-preview dialog::after {
+    background-size: 240px 165px;
+  }
+}

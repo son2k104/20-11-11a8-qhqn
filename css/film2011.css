@@ -1,0 +1,280 @@
+﻿#experience {
+  --stage-width: min(100vw, calc(100svh * 2143 / 734));
+  color-scheme: light;
+  font-family: Georgia, "Times New Roman", serif;
+  background: #eebfc4;
+  color: #9c4c5d;
+}
+#experience[hidden],
+#experience [hidden] {
+  display: none !important;
+}
+#experience .color-definitions {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+#experience {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  width: 100%;
+  height: 100svh;
+  overflow: hidden;
+  isolation: isolate;
+  display: grid;
+  place-items: center;
+}
+#experience .surroundings {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  /* Pale blue sky and cream-pink clouds, graded independently of the photos. */
+  background:
+    linear-gradient(
+      180deg,
+      #e9f5ff40 0%,
+      #fff8ed30 38%,
+      #fff7df26 70%,
+      #fff1e51a 100%
+    ),
+    url("../assets/images/nen-lien-mach.png") center / cover no-repeat;
+  filter: saturate(0.68) contrast(0.96) brightness(1.045);
+}
+#experience .stage {
+  position: relative;
+  width: var(--stage-width);
+  aspect-ratio: 2143 / 734;
+  flex: none;
+  overflow: visible;
+  transform: translateY(var(--ground-offset, 0px));
+}
+#experience .stage:not(.is-ready) {
+  /* Keep layout measurable without flashing the fallback title size. */
+  visibility: hidden;
+}
+#experience .film-scene {
+  position: absolute;
+  inset: 0;
+}
+#experience .film-scene img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  user-select: none;
+  -webkit-user-select: none;
+  pointer-events: none;
+}
+#experience .collage,
+#experience .collage-cache,
+#experience .intro-complete,
+#experience .film-artwork,
+#experience .film-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+#experience .collage {
+  overflow: visible;
+}
+#experience .collage,
+#experience .collage-cache,
+#experience .intro-complete {
+  /* Move photos, inserts, reflections and ornaments together. */
+  transform: translateX(var(--collage-shift, 0%));
+}
+#experience .is-preparing #collage-tiles {
+  visibility: hidden;
+}
+#experience .collage-cache {
+  pointer-events: none;
+}
+#experience .collage-cache__tile {
+  position: absolute;
+  opacity: 0;
+  will-change: transform, opacity;
+}
+#experience .collage-cache__tile.is-settled {
+  will-change: auto;
+}
+#experience .collage-cache__reflection {
+  position: absolute;
+  left: 0;
+  top: 82.425%;
+  width: 100%;
+  height: 17.575%;
+  opacity: 0;
+}
+#experience .film-intro.is-assembled .collage-cache__reflection {
+  opacity: 1;
+}
+#experience .photo-tile,
+#experience .collage-insert {
+  transform-box: view-box;
+  will-change: transform, opacity;
+}
+#experience .photo-tile.is-settled,
+#experience .collage-insert.is-settled {
+  will-change: auto;
+}
+#experience .photo-surface {
+  filter: url(#photo-warmth);
+}
+#experience .collage-inserts {
+  pointer-events: none;
+}
+#experience .collage-insert {
+  opacity: 0;
+}
+#experience .memory-doodles {
+  fill: none;
+  stroke: #ee8f88;
+  stroke-width: 4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  filter: drop-shadow(0 1px 1px #fff5dc);
+}
+#experience .collage-ribbon {
+  opacity: 0;
+  stroke-width: 3.2px;
+  pointer-events: none;
+}
+#experience .film-intro.is-assembled .collage-ribbon {
+  opacity: 1;
+  transition: opacity 0.38s ease;
+}
+#experience .intro-complete {
+  opacity: 0;
+}
+#experience .film-intro.is-assembled .intro-complete {
+  opacity: 1;
+}
+#experience .film-canvas {
+  pointer-events: none;
+  transform: translateZ(0);
+}
+#experience .film-strip {
+  position: absolute;
+  inset: 0;
+  /* Reclaim half of each side margin for the photographs. */
+  transform: scaleX(var(--film-stretch, 1.18));
+  transform-origin: 50.4% 50%;
+}
+#experience .film-artwork {
+  pointer-events: none;
+  /* Preserve the curved rails, with narrower pink rims at the two ends. */
+  clip-path: url(#film-frame-clip);
+  filter: url(#pastel-decoration);
+}
+#experience .intro-dedication,
+#experience .film-dedication {
+  position: absolute;
+  left: 50.4%;
+  top: var(--film-title-top, -14%);
+  width: var(--film-title-width, min(78%, 980px));
+  height: auto;
+  overflow: visible;
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+#experience .intro-dedication {
+  left: 50%;
+  top: var(--intro-title-top, -14%);
+  width: var(--intro-title-width, min(78%, 980px));
+}
+#experience .intro-dedication .tribute-text,
+#experience .film-dedication .tribute-text {
+  word-spacing: 5px;
+}
+#experience .film-dedication .dedication-date {
+  word-spacing: normal;
+}
+#experience .tribute-lines.dedication-flourish {
+  stroke-width: 1.8px;
+}
+#experience .tribute-text {
+  font-family: "Great Vibes", "Brush Script MT", cursive;
+  font-weight: 400;
+  fill: #ef736f;
+  stroke: #ef736f;
+  stroke-width: 0.65px;
+  stroke-linejoin: round;
+  paint-order: stroke fill;
+  filter: drop-shadow(0 1px 0.5px #fff6e5);
+}
+#experience .tribute-lines {
+  fill: none;
+  stroke: #ef7c74;
+  stroke-width: 3.6px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  filter: drop-shadow(0 1px 1px #fff4db);
+}
+#experience .tribute-fine {
+  stroke-width: 2.5px;
+}
+#experience .book-paper {
+  fill: #fff8e43d;
+}
+#experience .film-viewport {
+  position: absolute;
+  left: 13.8%;
+  top: 8.5%;
+  width: 73.2%;
+  height: 75%;
+  cursor: grab;
+  touch-action: none;
+  overscroll-behavior: contain;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  border-radius: 7%;
+}
+#experience .film-viewport.is-dragging {
+  cursor: grabbing;
+}
+#experience .film-viewport:focus-visible {
+  outline: 2px solid #fff3db;
+  outline-offset: 5px;
+  box-shadow: 0 0 24px #f99eac;
+}
+#experience .transition-glow {
+  /* Keep the light outside the transformed stage, without an internal panel edge. */
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse at 52% 55%,
+    #fff7dce6,
+    #ffe4cf55 50%,
+    #ffe4cf00 100%
+  );
+  pointer-events: none;
+  opacity: 0;
+  z-index: 3;
+}
+#experience .load-error,
+#experience .noscript {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: max-content;
+  max-width: 90vw;
+  margin: 0;
+  padding: 12px 20px;
+  border-radius: 12px;
+  background: #fff6e8;
+  text-align: center;
+  font:
+    14px/1.5 Arial,
+    sans-serif;
+  z-index: 10;
+}
+@media (prefers-reduced-motion: reduce) {
+  #experience .film-intro.is-assembled .collage-ribbon {
+    transition: none;
+  }
+}

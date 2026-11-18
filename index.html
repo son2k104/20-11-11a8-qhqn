@@ -1,0 +1,594 @@
+<!doctype html>
+<html lang="vi" prefix="og: https://ogp.me/ns#">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="theme-color" content="#203a32">
+  <meta name="description" content="Một lời tri ân gửi đến thầy cô nhân ngày Nhà giáo Việt Nam 20/11.">
+  <title>20/11 · Gửi ngàn lời tri ân</title>
+  <link rel="icon" type="image/png" href="assets/icons/logo2011.png">
+  <!-- Keep previews in the initial HTML so link crawlers do not need JavaScript.
+       Gift URLs contain ?id=...; do not canonicalize every gift to the demo page. -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ForYou">
+  <meta property="og:locale" content="vi_VN">
+  <meta property="og:title" content="20/11 · Gửi ngàn lời tri ân">
+  <meta property="og:description" content="Một lời tri ân gửi đến thầy cô nhân ngày Nhà giáo Việt Nam 20/11.">
+  <meta property="og:image" content="assets/images/bannerLinkPreview.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1672">
+  <meta property="og:image:height" content="941">
+  <meta property="og:image:alt" content="Bảng xanh, bó hoa và lời tri ân ngày Nhà giáo Việt Nam 20/11.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="20/11 · Gửi ngàn lời tri ân">
+  <meta name="twitter:description" content="Một lời tri ân gửi đến thầy cô nhân ngày Nhà giáo Việt Nam 20/11.">
+  <meta name="twitter:image" content="assets/images/bannerLinkPreview.png">
+  <meta name="twitter:image:alt" content="Bảng xanh, bó hoa và lời tri ân ngày Nhà giáo Việt Nam 20/11.">
+  <link rel="preload" as="image" href="assets/images/anhLogo.png">
+  <link rel="preload" as="image" href="assets/images/bang-phan-hai-ben-tuong.png">
+  <link rel="preload" as="image" href="assets/images/giaoDienHoanThanh.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Great+Vibes&display=swap">
+  <link rel="stylesheet" href="css/memories2011.css">
+  <link rel="stylesheet" href="css/intro2011.css">
+  <link rel="stylesheet" href="css/letter2011.css">
+  <link rel="stylesheet" href="css/film2011.css">
+  <link rel="stylesheet" href="css/preview2011.css">
+  <script defer src="js/preview2011-store.js"></script>
+  <script defer src="api/app-config.js"></script>
+  <script defer src="api/foryou2011-api.js"></script>
+  <script defer src="js/preview2011.js"></script>
+  <script defer src="js/intro2011-memories.js"></script>
+  <script defer src="js/intro2011.js"></script>
+  <script defer src="js/letter2011.js"></script>
+  <script defer src="js/film2011.js"></script>
+  <script defer src="js/music2011.js"></script>
+  <script defer src="js/navigation2011.js"></script>
+</head>
+<body>
+  <noscript><p>Vui lòng bật JavaScript để mở món quà.</p></noscript>
+  <!-- Nhạc mặc định. Sau này đặt URL API vào data-music-endpoint:
+       JSON { "musicUrl": "https://.../bai-hat.mp3" }.
+       Hoặc truyền window.__MUSIC_DATA__ trước music2011.js,
+       hay gọi window.backgroundMusic2011.setSource(url) sau khi nhận dữ liệu. -->
+  <audio id="background-music" src="assets/musics/cotuyetvoinhat.mp3"
+    loop preload="auto" data-music-endpoint="" hidden></audio>
+  <section class="start-screen" id="start-screen" aria-label="Bắt đầu lời chúc 20/11">
+    <button class="start-screen__button" id="start-button" type="button"
+      aria-labelledby="start-label" aria-controls="intro-screen">
+      <span class="start-screen__logo-frame">
+        <img class="start-screen__logo" src="assets/images/anhLogo.png"
+          alt="Logo ngày Nhà giáo Việt Nam 20/11" width="1254" height="1254"
+          fetchpriority="high" draggable="false">
+      </span>
+      <span class="start-screen__label" id="start-label">Chạm để bắt đầu</span>
+    </button>
+  </section>
+  <dialog class="rotation-notice" aria-labelledby="rotation-title" aria-describedby="rotation-description rotation-zalo-hint">
+    <div class="rotation-notice__card">
+      <svg class="rotation-notice__icon" viewBox="0 0 100 100" fill="none" aria-hidden="true">
+        <g class="rotation-notice__device">
+          <rect x="32" y="19" width="36" height="62" rx="7" stroke="currentColor" stroke-width="2.5"/>
+          <path d="M44 26H56M47 74H53" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+        </g>
+        <path d="M76 30C91 47 84 72 67 81M76 30L76 41M76 30L87 31" stroke="#efb4b9" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <h2 id="rotation-title">Xoay ngang một chút nhé!</h2>
+      <p id="rotation-description">Bạn hãy xoay ngang điện thoại hoặc iPad để có trải nghiệm tốt nhất.</p>
+      <p id="rotation-zalo-hint">Khi mở trên Zalo bạn hãy nhấn vào dấu 3 chấm ở góc trên bên phải chọn mở ở trình duyệt bên ngoài để có thể xoay ngang được nhé!</p>
+      <span class="rotation-notice__heart" aria-hidden="true">♡</span>
+    </div>
+  </dialog>
+  <main class="intro" id="intro-screen" aria-label="Lời chúc ngày Nhà giáo Việt Nam"
+    tabindex="-1" data-intro-pending aria-hidden="true" inert>
+    <div class="scene" id="scene">
+      <img class="scene__background" src="assets/images/bang-phan-hai-ben-tuong.png" alt="Bảng xanh viền gỗ ở giữa hai mảng tường kem rộng, có giấy note trái tim bên tường phải và bàn gỗ trống dưới nắng ấm" fetchpriority="high">
+      <svg class="chalkboard" id="chalkboard" viewBox="0 0 1546 1017" preserveAspectRatio="none" role="img" aria-labelledby="greeting-title">
+        <title id="greeting-title">Chúc mừng ngày nhà giáo Việt Nam 20/11</title>
+        <defs>
+          <!-- Keep the actual chalk texture and lettering from the reference. -->
+          <filter id="pink-chalk" color-interpolation-filters="sRGB">
+            <feColorMatrix type="matrix" values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  6 -6 0 0 -0.22"/>
+          </filter>
+          <filter id="ivory-chalk" color-interpolation-filters="sRGB">
+            <feColorMatrix type="matrix" values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 5 0 0 -2.7"/>
+          </filter>
+          <filter id="soft-tip"><feGaussianBlur stdDeviation="0.55"/></filter>
+          <image id="reference" href="assets/images/giaoDienHoanThanh.png" width="1546" height="1017"/>
+
+          <mask id="pink-ink" maskUnits="userSpaceOnUse" x="300" y="130" width="1040" height="490">
+            <use href="#reference" filter="url(#pink-chalk)"/>
+          </mask>
+          <mask id="ivory-ink" maskUnits="userSpaceOnUse" x="540" y="320" width="510" height="360">
+            <use href="#reference" filter="url(#ivory-chalk)"/>
+          </mask>
+          <clipPath id="line-0"><path d="M420 140H1120V240H1268V400H310V260H420Z"/></clipPath>
+          <clipPath id="line-1"><path d="M610 325H1055V402H610Z"/></clipPath>
+          <clipPath id="line-2"><path d="M435 398H1210V602H515V565H435Z"/></clipPath>
+          <clipPath id="line-3"><path d="M540 575H1040V675H540Z"/></clipPath>
+        </defs>
+        <g id="writing" aria-hidden="true"></g>
+        <g class="chalk-tip" id="chalk-tip" aria-hidden="true" opacity="0">
+          <ellipse rx="6" ry="3" fill="#ffe5d2" transform="rotate(-35)"/>
+          <circle r="11" fill="#ffdae0" opacity=".12"/>
+        </g>
+      </svg>
+      <noscript>
+        <svg class="chalkboard" viewBox="0 0 1546 1017" preserveAspectRatio="none" aria-hidden="true">
+          <g mask="url(#pink-ink)">
+            <use href="#reference" clip-path="url(#line-0)"/>
+            <use href="#reference" clip-path="url(#line-2)"/>
+          </g>
+          <g mask="url(#ivory-ink)">
+            <use href="#reference" clip-path="url(#line-1)"/>
+            <use href="#reference" clip-path="url(#line-3)"/>
+          </g>
+        </svg>
+      </noscript>
+      <!-- Set data-photos-url to the API endpoint when the server is ready. -->
+      <section class="class-memories" data-memories aria-label="Những kỷ niệm của lớp" data-photos-url=""></section>
+      <template id="polaroid-template">
+        <button class="polaroid" type="button">
+          <span class="paper-clip" aria-hidden="true"></span>
+          <img decoding="async" draggable="false">
+          <span class="polaroid__caption"></span>
+        </button>
+      </template>
+      <template id="memory-note-template">
+        <div class="polaroid polaroid--note">
+          <span class="paper-clip" aria-hidden="true"></span>
+          <span class="polaroid__note-text"></span>
+          <span class="polaroid__note-heart" aria-hidden="true">♡</span>
+        </div>
+      </template>
+      <div class="sunlight" aria-hidden="true"></div>
+      <div class="dust" id="dust" aria-hidden="true"></div>
+      <button class="intro-next" id="intro-next" type="button" aria-label="Đọc thư 20/11" aria-controls="letter-birthday" hidden>
+        <span class="intro-next__mail" aria-hidden="true"><img src="assets/icons/iconThu2011.png" alt="" draggable="false"></span>
+        <span class="intro-next__arrow" aria-hidden="true"><img src="assets/icons/iconNex2011.png" alt="" draggable="false"></span>
+      </button>
+    </div>
+    <h1 class="sr-only">Chúc mừng ngày Nhà giáo Việt Nam 20/11</h1>
+    <p class="sr-only" id="status" role="status" aria-live="polite"></p>
+  </main>
+  <dialog class="photo-viewer" aria-label="Xem ảnh kỷ niệm của lớp">
+    <button class="photo-viewer__close" type="button" aria-label="Đóng ảnh">×</button>
+    <figure class="photo-viewer__print">
+      <img class="photo-viewer__image" alt="">
+      <figcaption class="photo-viewer__caption"></figcaption>
+    </figure>
+  </dialog>
+  <!-- Điền URL API trả JSON vào data-letter-endpoint, hoặc khai báo
+       window.__LETTER_DATA__ trước khi nạp letter2011.js nếu đã fetch ở ứng dụng chính. -->
+  <section id="letter-birthday" class="letter-birthday"
+    aria-hidden="true" inert data-letter-endpoint="">
+    <div class="memory-wall" role="group" aria-label="Những kỷ niệm thời đi học">
+      <div class="letter-memories" data-memories></div>
+      <span class="memory-note memory-note--date" aria-hidden="true">
+        <span class="paper-clip" aria-hidden="true"></span>20/11<span>♡</span>
+      </span>
+      <span class="memory-note memory-note--heart" aria-hidden="true">
+        <span class="paper-clip" aria-hidden="true"></span>♡
+      </span>
+      <svg class="wall-doodle wall-doodle--left" viewBox="0 0 100 180" aria-hidden="true"><path d="M40 48C-5 22 24 4 40 23C55-2 87 18 40 48ZM55 153C12 128 39 108 55 127C71 103 98 125 55 153"/></svg>
+      <svg class="wall-doodle wall-doodle--right" viewBox="0 0 160 220" aria-hidden="true"><path d="M116 43C72 17 100 0 116 19C132-5 160 17 116 43M78 151L139 110L118 173L105 148L78 151ZM105 148L139 110M105 148L99 168L118 173"/><path class="flight-trail" d="M99 168C83 218 30 222 40 184C50 162 80 207 11 204"/></svg>
+    </div>
+    <div class="cssletter">
+      <h2 class="letter-scene-title">
+        <span>Ngày nhà giáo Việt Nam</span>
+        <svg class="letter-title-flourish" viewBox="0 0 720 52" aria-hidden="true" focusable="false">
+          <g class="letter-title-flourish__strokes">
+            <path d="M12 27C-2 15 17 4 34 15C57 31 77 42 119 33C191 17 255 20 331 34"/>
+            <path d="M58 29C37 49 12 43 22 32C34 19 71 19 99 26M119 39C187 27 250 27 296 33"/>
+          </g>
+          <g class="letter-title-flourish__strokes" transform="translate(720 0) scale(-1 1)">
+            <path d="M12 27C-2 15 17 4 34 15C57 31 77 42 119 33C191 17 255 20 331 34"/>
+            <path d="M58 29C37 49 12 43 22 32C34 19 71 19 99 26M119 39C187 27 250 27 296 33"/>
+          </g>
+          <path class="letter-title-flourish__heart" d="M360 39C334 24 345 13 360 25C375 13 386 24 360 39Z"/>
+        </svg>
+      </h2>
+      <div class="envelope">
+        <button type="button" class="wax-seal" id="openEnvelope" aria-label="Mở thư 20/11" title="Mở thư 20/11">
+          <img src="assets/icons/conDau2011.png" alt="" draggable="false">
+        </button>
+        <div class="envelope-flap"></div>
+        <article class="reveal-letter" tabindex="-1" aria-label="Nội dung lá thư">
+          <div class="letter-sheet">
+          <div class="letter-ornaments" aria-hidden="true">
+            <svg class="letter-corner letter-corner--top-left" viewBox="0 0 100 100"><path d="M37 64C-7 40 18 17 37 35C52 9 83 32 37 64"/><path class="fine-line" d="M12 86Q4 46 16 12M12 12H78"/></svg>
+            <svg class="letter-corner letter-corner--top-right" viewBox="0 0 130 110"><path d="M16 18Q38 10 57 30L51 76Q33 56 8 57ZM57 30Q79 17 107 26L101 70Q75 61 51 76M14 65Q35 65 51 82Q78 67 105 77M23 27L45 34M21 36L43 43M19 45L41 52M66 35L95 32M64 44L93 41M62 53L91 50"/></svg>
+            <svg class="letter-corner letter-corner--bottom-left" viewBox="0 0 180 100"><text x="8" y="63">20/11</text><path d="M6 90C-1 58 67 78 89 88S136 93 137 76C137 61 116 66 126 79C139 96 159 94 176 96"/></svg>
+            <svg class="letter-corner letter-corner--bottom-right" viewBox="0 0 150 100"><path d="M3 94C50 94 91 42 146 91M109 68C77 48 95 29 109 43C125 23 145 45 109 68"/></svg>
+          </div>
+          <div class="letter-copy">
+            <h2 class="letter-title" id="letterTitle">Kính gửi cô Nguyễn Thị Lan Phương - giáo viên chủ nhiệm lớp 11A8!</h2>
+            <p class="letter-body" id="letterContent">Nhân ngày 20/11 - ngày Nhà giáo Việt Nam, lớp 11A8 chúng con xin gửi những lời tri ân sâu sắc nhất đến cô Lan Phương vì đã luôn là một giáo viên tận tình, quan tâm và hỗ trợ chúng con rất nhiều trong việc học và các hoạt động ngoại khoá của trường, lớp. Chúc cô sẽ có một ngày 20/11 thật hạnh phúc và trọn vẹn. Chúng con chúc cô sẽ ngày càng có thật nhiều sức khoẻ, xinh đẹp và niềm vui trong cuộc sống. Bên cạnh đó, tụi con mong rằng cô sẽ luôn giữ vững ngọn lửa đam mê, nhiệt huyết trong sự nghiệp trồng người và gặt hái được những thành tựu xứng đáng trên hành trình gieo mầm tri thức. Những kiến thức và lời dạy bảo mà cô truyền đạt cho chúng con sẽ là hành trang quan trọng để giúp chúng con nên người và nỗ lực hơn để đạt được những kết quả tốt trong việc học. Hy vọng rằng cô và tập thể lớp 11A8 sẽ luôn đoàn kết và có thêm nhiều kỷ niệm đẹp dưới mái trường THPT Quốc Học Quy Nhơn!
+Thank you, Ms. Phuong, for being the most special piece that helps complete the beautiful picture of our 11A8 family. We will work even harder in our studies to achieve worthy accomplishments for our school. Thank you for everything—your guidance and care have helped us love and cherish your affection for our class even more ❤️.</p>
+            <cite class="letter-signature" id="letterSignature">Học trò của cô</cite>
+            <button type="button" class="letter-continue" id="continueLetter"
+              disabled aria-hidden="true" aria-controls="experience">Tiếp tục</button>
+          </div>
+          </div>
+        </article>
+        <div class="envelope-folds">
+          <div class="envelope-left"></div>
+          <div class="envelope-right"></div>
+          <div class="envelope-bottom"></div>
+        </div>
+      </div>
+    </div>
+    <p class="sr-only">Ngày 20 tháng 11</p>
+    <p id="letterStatus" class="sr-only" role="status"></p>
+  </section>
+
+  <section id="experience" class="experience" data-scene="intro"
+    aria-label="Thước phim kỷ niệm ngày 20/11" tabindex="-1" hidden inert>
+    <svg
+      class="color-definitions"
+      aria-hidden="true"
+      focusable="false"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <defs>
+        <clipPath id="film-frame-clip" clipPathUnits="objectBoundingBox">
+          <path id="film-frame-outline" clip-rule="evenodd" />
+        </clipPath>
+        <filter id="photo-warmth" color-interpolation-filters="sRGB">
+          <!-- Warm, luminous midtones; white shirts retain their highlights. -->
+          <feComponentTransfer>
+            <feFuncR type="gamma" amplitude=".99" exponent=".74" offset=".01" />
+            <feFuncG
+              type="gamma"
+              amplitude=".997"
+              exponent=".78"
+              offset=".003"
+            />
+            <feFuncB type="gamma" amplitude=".995" exponent=".85" offset="0" />
+            <feFuncA type="identity" />
+          </feComponentTransfer>
+        </filter>
+        <symbol id="tribute-heart" viewBox="0 0 64 64">
+          <path
+            d="M31 54C24 46 5 31 8 19 11 5 25 8 31 20 37 5 52 5 56 18 61 33 42 46 31 54Z"
+          />
+        </symbol>
+        <symbol id="teacher-tribute" viewBox="0 0 360 500">
+          <g transform="rotate(-6 180 230)">
+            <g class="tribute-lines">
+              <use
+                href="#tribute-heart"
+                x="218"
+                y="8"
+                width="56"
+                height="60"
+                transform="rotate(12 246 38)"
+              />
+              <path d="M52 340C115 307 178 316 239 312S286 300 287 288" />
+              <use
+                href="#tribute-heart"
+                x="266"
+                y="267"
+                width="43"
+                height="46"
+                transform="rotate(14 287 290)"
+              />
+              <path class="tribute-fine" d="m285 66 9-8M283 76l13 1" />
+            </g>
+            <g class="tribute-text">
+              <text x="80" y="119" font-size="93">Ngày</text>
+              <text x="42" y="201" font-size="88">nhà giáo</text>
+              <text
+                x="18"
+                y="291"
+                font-size="100"
+                textLength="308"
+                lengthAdjust="spacingAndGlyphs"
+              >
+                Việt Nam
+              </text>
+            </g>
+          </g>
+          <g
+            class="tribute-lines"
+            transform="translate(21 354) rotate(4 155 68)"
+          >
+            <path
+              class="book-paper"
+              d="M156 125C117 100 62 92 8 95L38 16C84 8 122 25 156 48 190 25 228 8 274 16L304 95C250 92 195 100 156 125Z"
+            />
+            <path
+              d="M156 48v77M38 16 21 83C72 83 117 100 156 125 195 100 240 83 291 83L274 16M8 105C65 103 117 120 156 137 195 120 247 103 304 105M156 137v-12"
+            />
+            <path
+              class="tribute-fine"
+              d="M49 35Q96 33 137 62M44 49Q91 47 137 76M39 64Q87 62 137 91M35 78Q84 77 137 106M263 35Q216 33 175 62M268 49Q221 47 175 76M273 64Q225 62 175 91M277 78Q228 77 175 106"
+            />
+            <use
+              href="#tribute-heart"
+              x="208"
+              y="-43"
+              width="41"
+              height="47"
+              transform="rotate(-10 228 -20)"
+            />
+            <path
+              class="tribute-fine"
+              d="M274-13q1 15 14 16-13 1-14 16-1-15-14-16 13-1 14-16ZM33-9q1 10 10 11-9 1-10 11-1-10-10-11 9-1 10-11Z"
+            />
+          </g>
+        </symbol>
+        <!-- Match the soft coral ink in the reference without tinting class photos. -->
+        <filter
+          id="pastel-decoration"
+          color-interpolation-filters="sRGB"
+          x="-2%"
+          y="-2%"
+          width="104%"
+          height="104%"
+        >
+          <feComponentTransfer>
+            <feFuncR type="gamma" amplitude="1" exponent="1.8" offset="0" />
+            <feFuncG type="table" tableValues=".32 .5 .64 .81 1" />
+            <feFuncB type="table" tableValues=".30 .45 .63 .82 1" />
+            <feFuncA type="identity" />
+          </feComponentTransfer>
+        </filter>
+      </defs>
+    </svg>
+      <h1 class="sr-only">
+        Tri ân thầy cô nhân ngày Nhà giáo Việt Nam 20 tháng 11
+      </h1>
+      <div class="surroundings" aria-hidden="true"></div>
+      <!-- Keep the reference layout using the remaining class photographs. -->
+      <div id="stage" class="stage">
+        <section
+          id="intro"
+          class="film-scene film-intro"
+          aria-label="Xếp ảnh thành ngày 20 - 11"
+        >
+          <svg
+            class="intro-dedication"
+            viewBox="0 0 1000 155"
+            role="img"
+            aria-label="Ngày nhà giáo Việt Nam"
+          >
+            <text
+              class="tribute-text"
+              x="500"
+              y="98"
+              font-size="94"
+              text-anchor="middle"
+            >
+              Ngày nhà giáo Việt Nam
+            </text>
+            <g class="tribute-lines dedication-flourish" aria-hidden="true">
+              <path d="M270 136C340 122 408 138 477 132M523 132C592 138 660 122 730 136" />
+              <use href="#tribute-heart" x="487" y="119" width="26" height="27" />
+            </g>
+          </svg>
+          <svg
+            id="collage"
+            class="collage"
+            viewBox="0 0 2143 734"
+            role="img"
+            aria-label="Những bức ảnh đang bay vào xếp thành ngày 20 - 11"
+          >
+            <defs>
+              <filter
+                id="photo-glow"
+                x="-35%"
+                y="-35%"
+                width="170%"
+                height="170%"
+              >
+                <feDropShadow
+                  dx="0"
+                  dy="2"
+                  stdDeviation="4"
+                  flood-color="#b98162"
+                  flood-opacity=".10"
+                />
+                <feDropShadow
+                  dx="0"
+                  dy="2"
+                  stdDeviation="10"
+                  flood-color="#ffdca0"
+                  flood-opacity=".78"
+                />
+                <feDropShadow
+                  dx="0"
+                  dy="0"
+                  stdDeviation="3.2"
+                  flood-color="#fff6d8"
+                  flood-opacity=".95"
+                />
+              </filter>
+              <symbol id="drawn-heart" viewBox="0 0 64 64">
+                <path
+                  d="M32 54S5 38 8 20C10 7 26 6 32 20 38 6 54 7 56 20 59 38 32 54 32 54Z"
+                />
+              </symbol>
+              <linearGradient id="reflection-fade" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="white" stop-opacity=".19" />
+                <stop offset="1" stop-color="white" stop-opacity="0" />
+              </linearGradient>
+              <mask id="reflection-mask">
+                <rect
+                  x="400"
+                  y="605"
+                  width="1650"
+                  height="129"
+                  fill="url(#reflection-fade)"
+                />
+              </mask>
+            </defs>
+            <g class="memory-doodles collage-ribbon" aria-hidden="true">
+              <path
+                d="M760 492C830 574 902 550 1002 544S1258 584 1390 505 1550 381 1671 424 1862 538 2020 446"
+              />
+            </g>
+            <g id="collage-tiles"></g>
+            <g mask="url(#reflection-mask)" aria-hidden="true">
+              <use
+                href="#collage-tiles"
+                transform="translate(0 1220) scale(1 -1)"
+              />
+            </g>
+          </svg>
+          <svg
+            id="intro-complete"
+            class="intro-complete"
+            viewBox="0 0 2143 734"
+            aria-hidden="true"
+          >
+            <g class="memory-doodles">
+              <use
+                href="#drawn-heart"
+                x="768"
+                y="151"
+                width="56"
+                height="56"
+                transform="rotate(12 796 179)"
+              />
+              <use
+                href="#drawn-heart"
+                x="450"
+                y="343"
+                width="52"
+                height="52"
+                transform="rotate(-13 476 369)"
+              />
+              <use href="#drawn-heart" x="747" y="439" width="52" height="52" />
+              <use
+                href="#drawn-heart"
+                x="969"
+                y="384"
+                width="50"
+                height="60"
+                transform="rotate(-15 994 414)"
+              />
+              <use
+                href="#drawn-heart"
+                x="1219"
+                y="214"
+                width="52"
+                height="52"
+                transform="rotate(15 1245 240)"
+              />
+              <use
+                href="#drawn-heart"
+                x="1418"
+                y="271"
+                width="52"
+                height="52"
+              />
+              <use
+                href="#drawn-heart"
+                x="1700"
+                y="380"
+                width="54"
+                height="54"
+                transform="rotate(12 1727 407)"
+              />
+              <use
+                href="#drawn-heart"
+                x="1971"
+                y="259"
+                width="60"
+                height="60"
+              />
+              <use
+                href="#drawn-heart"
+                x="1984"
+                y="424"
+                width="56"
+                height="56"
+              />
+            </g>
+          </svg>
+        </section>
+        <section
+          id="film"
+          class="film-scene film"
+          aria-label="Thước phim kỷ niệm"
+          hidden
+          inert
+        >
+          <svg
+            class="film-dedication"
+            viewBox="0 0 1000 260"
+            role="img"
+            aria-label="Ngày nhà giáo Việt Nam 20/11"
+          >
+            <text
+              class="tribute-text"
+              x="500"
+              y="98"
+              font-size="94"
+              text-anchor="middle"
+            >
+              Ngày nhà giáo Việt Nam
+            </text>
+            <text
+              class="tribute-text dedication-date"
+              x="500"
+              y="194"
+              font-size="88"
+              text-anchor="middle"
+            >
+              20/11
+            </text>
+            <g class="tribute-lines dedication-flourish" aria-hidden="true">
+              <path
+                d="M320 230C375 218 420 232 477 226M523 226C580 232 625 218 680 230"
+              />
+              <use
+                href="#tribute-heart"
+                x="487"
+                y="213"
+                width="26"
+                height="27"
+              />
+            </g>
+          </svg>
+          <div class="film-strip">
+            <canvas
+              id="film-canvas"
+              class="film-canvas"
+              aria-hidden="true"
+            ></canvas>
+            <img
+              class="film-artwork"
+              src="assets/images/khung-phim-trong-suot.png"
+              alt=""
+              aria-hidden="true"
+            />
+            <div
+              id="film-viewport"
+              class="film-viewport"
+              tabindex="0"
+              role="region"
+              aria-label="Thước phim chuyển động. Kéo chuột, vuốt, hoặc dùng phím mũi tên để xem ảnh. Phim tự chạy lại sau 2 giây không tương tác."
+            ></div>
+          </div>
+        </section>
+      </div>
+      <div
+        id="transition-glow"
+        class="transition-glow"
+        aria-hidden="true"
+      ></div>
+      <p id="announcer" class="sr-only" aria-live="polite"></p>
+      <p id="load-error" class="load-error" hidden>
+        Chưa tải được ảnh. Bạn hãy tải lại trang nhé.
+      </p>
+    <noscript
+      ><p class="noscript">
+        Hãy bật JavaScript để xem hiệu ứng xếp ảnh và vuốt thước phim.
+      </p></noscript
+    >
+  </section>
+</body>
+</html>

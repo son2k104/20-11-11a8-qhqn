@@ -1,0 +1,74 @@
+@charset "UTF-8";
+
+/* Shared Polaroids and photo viewer for both screens. */
+.polaroid {
+  --tilt: -7deg;
+  --photo-delay: 0s;
+  --image-ratio: 0.75;
+  position: absolute; width: min(13vw, 18vh); margin: 0;
+  padding: 7px 7px 0; border: 1px solid #e4d9c8; border-radius: 1px;
+  background: linear-gradient(125deg, #fffdf4, #f1e9dc);
+  color: #775a50; cursor: zoom-in; pointer-events: auto;
+  -webkit-tap-highlight-color: transparent;
+  box-shadow: 3px 5px 3px #071a1745, 8px 14px 18px #071a1759, inset 0 0 12px #d2b99920;
+  transform: rotate(var(--tilt)); transform-origin: 50% 0;
+  transition: transform .35s ease, box-shadow .35s ease;
+  animation: pin-photo .85s var(--photo-delay) backwards;
+}
+
+.polaroid--one { --photo-delay: .65s; }
+.polaroid--two { --tilt: 6deg; --photo-delay: .95s; }
+.polaroid--three { --tilt: -5deg; --photo-delay: 1.25s; }
+.polaroid--landscape { --image-ratio: 1.333333; }
+.polaroid--square { --image-ratio: 1; }
+
+.polaroid > img { display: block; width: 100%; height: auto; aspect-ratio: var(--image-ratio); object-fit: cover; background: #e8ddcc; }
+.polaroid__caption { display: block; min-height: 29px; padding: 5px 1px 6px; font: clamp(7px, .55vw, 10px)/1.3 "Segoe Print", "Bradley Hand", cursive; text-align: center; overflow-wrap: anywhere; }
+.polaroid__caption > span { color: #c3797c; font-size: 1.2em; }
+.paper-clip {
+  position: absolute; top: -25px; left: calc(50% - 16px);
+  width: 32px; height: 38px; z-index: 1;
+  background: url("../assets/icons/paperClip2011.svg") center / contain no-repeat;
+  filter: drop-shadow(1px 2px 1px #803f3555);
+  transform: rotate(3deg); pointer-events: none;
+}
+.polaroid--note {
+  --image-ratio: 1;
+  display: grid; place-content: center; justify-items: center; gap: 4px;
+  aspect-ratio: 1; padding: clamp(10px, 1.5vw, 18px); border: 0;
+  background: linear-gradient(120deg, #ffe4b9, #efbc88);
+  box-shadow: 3px 8px 14px #71442a33;
+  color: #6e422a; text-align: center;
+  font-family: var(--letter-font, "Segoe Print", cursive);
+  cursor: default; pointer-events: none; container-type: inline-size;
+}
+.polaroid__note-text { font-size: clamp(13px, 24cqw, 36px); font-weight: 600; line-height: 1.2; white-space: nowrap; }
+.polaroid__note-heart { color: #e9697d; font-size: clamp(15px, 22cqw, 32px); line-height: 1; }
+button.polaroid:focus-visible { transform: rotate(0deg) scale(1.04); box-shadow: 4px 8px 5px #071a1745, 12px 20px 25px #071a1766; z-index: 2; }
+@media (hover: hover) and (pointer: fine) {
+  button.polaroid:hover { transform: rotate(0deg) scale(1.06); box-shadow: 4px 8px 5px #071a1745, 12px 20px 25px #071a1766; z-index: 2; }
+}
+button.polaroid:focus-visible { outline: 2px solid #ffd8b2; outline-offset: 6px; }
+.photo-viewer { position: fixed; inset: 0; width: 100%; height: 100dvh; max-width: none; max-height: none; margin: 0; padding: max(12px, env(safe-area-inset-top)) max(16px, env(safe-area-inset-right)) max(12px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left)); border: 0; background: #10231ddd; overflow: hidden; overscroll-behavior: none; }
+.photo-viewer[open] { display: grid; place-items: center; }
+.photo-viewer::backdrop { background: #0b171a80; backdrop-filter: blur(8px); }
+.photo-viewer__print { margin: 0; width: min(80vw, 600px); padding: 8px 8px 0; background: #fcf6e9; box-shadow: 0 20px 80px #0008; }
+.photo-viewer__image { display: block; width: 100%; height: auto; object-fit: contain; }
+.photo-viewer__caption { color: #775a50; padding: 8px 3px 12px; text-align: center; font: clamp(10px, 2.8dvh, 16px)/1.4 "Segoe Print", "Bradley Hand", cursive; overflow-wrap: anywhere; }
+.photo-viewer__close { position: fixed; top: max(4px, env(safe-area-inset-top)); right: max(12px, env(safe-area-inset-right)); width: 44px; height: 44px; border: 1px solid #f9e1c460; border-radius: 50%; background: #12221c; color: #fff1dd; font-size: 28px; cursor: pointer; z-index: 1; }
+.photo-viewer__close:focus-visible { outline: 2px solid #ffd8b2; outline-offset: 3px; }
+@keyframes pin-photo { from { opacity: 0; transform: rotate(calc(var(--tilt) - 7deg)) translateY(-15px); } to { opacity: 1; transform: rotate(var(--tilt)) translateY(0); } }
+
+@media (max-width: 600px), (orientation: landscape) and (max-height: 540px) and (any-pointer: coarse) {
+  .paper-clip { transform: scale(.65); transform-origin: 50% 100%; }
+}
+
+@media (orientation: landscape) and (max-height: 540px) and (any-pointer: coarse) {
+  .polaroid--one { --tilt: -4deg; }
+  .polaroid--two { --tilt: 4deg; }
+  .polaroid--three { --tilt: -3deg; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .polaroid { animation: none !important; transition: none !important; }
+}
