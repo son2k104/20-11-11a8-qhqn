@@ -10,11 +10,17 @@
   const BACKGROUND_SOURCE = "assets/images/nen-lien-mach.png";
   let customPhotos = false;
   // 27 ảnh kỷ niệm thật (assets/images/film/kyniem-01..27.jpg), không trùng 3 ảnh ở màn hình đầu.
-  let PHOTO_SOURCES = Array.from(
-    { length: 27 },
-    (_, index) =>
-      `assets/images/film/kyniem-${String(index + 1).padStart(2, "0")}.jpg`,
-  );
+  let PHOTO_SOURCES = [
+    ...Array.from(
+      { length: 27 },
+      (_, index) =>
+        `assets/images/film/kyniem-${String(index + 1).padStart(2, "0")}.jpg`,
+    ),
+    "assets/images/film/kyniem-28.jpg", // ảnh cả lớp thả tim
+    "assets/images/film/video-poster.jpg", // khung cuối cùng của thước phim = video kỷ niệm
+  ];
+  // true: khung cuối của thước phim là video (assets/videos/ky-niem.mp4).
+  let hasFilmVideo = true;
   const experience = document.getElementById("experience");
   const $ = (id) => experience.querySelector(`#${id}`);
   const svgNS = "http://www.w3.org/2000/svg";
@@ -1010,7 +1016,7 @@
       viewport.releasePointerCapture(captured);
   }
   viewport.addEventListener("pointerdown", (event) => {
-    if (!event.isPrimary || event.button !== 0 || scene !== "film") return;
+    if (!event.isPrimary || event.button !== 0 || scene !== "film" || videoActive) return;
     pointerId = event.pointerId;
     lastX = event.clientX;
     lastInteraction = performance.now();
@@ -1050,6 +1056,7 @@
     { passive: false },
   );
   viewport.addEventListener("keydown", (event) => {
+    if (videoActive) return;
     if (event.key === "ArrowRight" || event.key === "ArrowLeft") {
       event.preventDefault();
       moveFilm(event.key === "ArrowRight" ? 160 : -160);
@@ -1067,6 +1074,161 @@
       animation.wasVisibilityPaused = true;
     }
     return animation.finished;
+  }
+  // ---- Video kỷ niệm: hiện lớn ở giữa thước phim, phát xong thu nhỏ vào đúng khung ảnh ----
+  const videoBox = $("film-video-box"),
+    filmVideo = $("film-video"),
+    videoSkip = $("film-video-skip");
+  const backgroundMusic = document.querySelector("#background-music");
+  const FILM_CENTER_X = (FILM_LEFT + FILM_RIGHT) / 2;
+  const VIDEO_ZOOM = 1.7; // lúc phát, video to gấp ngần này so với khung ảnh trên thước phim
+  let videoActive = false;
+  let musicTimer = 0;
+
+  // Vị trí cuộn để khung video (khung cuối danh sách) nằm chính giữa thước phim.
+  function videoCenterOffset() {
+    const video = filmPhotos.at(-1);
+    const center = loopWidth - video.filmWidth / 2;
+    const offset = center - (FILM_CENTER_X - 330) * FILM_STRETCH;
+    return ((offset % loopWidth) + loopWidth) % loopWidth;
+  }
+  // slot = đúng vị trí/kích thước khung ảnh trên thước phim; big = kích thước lúc đang phát.
+  function videoRects() {
+    const video = filmPhotos.at(-1);
+    const origin = film.getBoundingClientRect();
+    const box = canvas.getBoundingClientRect(); // đã gồm cả phép giãn ngang của thước phim
+    const sx = (x) => box.left + (x / WIDTH) * box.width - origin.left;
+    const sy = (y) => box.top + (y / HEIGHT) * box.height - origin.top;
+    const half = video.filmWidth / FILM_STRETCH / 2;
+    const top = profileAt(topProfile, FILM_CENTER_X) - 4;
+    const bottom = profileAt(bottomProfile, FILM_CENTER_X) + 4;
+    const left = sx(FILM_CENTER_X - half);
+    const slot = {
+      left,
+      top: sy(top),
+      width: sx(FILM_CENTER_X + half) - left,
+      height: sy(bottom) - sy(top),
+    };
+    const aspect =
+      filmVideo.videoWidth && filmVideo.videoHeight
+        ? filmVideo.videoWidth / filmVideo.videoHeight
+        : 16 / 9;
+    let width = slot.width * VIDEO_ZOOM;
+    let height = width / aspect;
+    const maxHeight = innerHeight * 0.78,
+      maxWidth = innerWidth * 0.9;
+    if (height > maxHeight) { height = maxHeight; width = height * aspect; }
+    if (width > maxWidth) { width = maxWidth; height = width / aspect; }
+    width = Math.max(width, slot.width);
+    height = Math.max(height, slot.height);
+    const cx = slot.left + slot.width / 2,
+      cy = slot.top + slot.height / 2;
+    let bigTop = cy - height / 2;
+    // Giữ video nằm dưới dòng tiêu đề "Ngày nhà giáo Việt Nam 20/11", không đè lên chữ.
+    const title = film.querySelector(".film-dedication");
+    const minTop = title ? title.getBoundingClientRect().bottom - origin.top + 6 : 0;
+    const maxBottom = innerHeight - origin.top - 10;
+    if (bigTop < minTop) {
+      bigTop = minTop;
+      if (bigTop + height > maxBottom) {
+        height = Math.max(slot.height, maxBottom - bigTop);
+        width = Math.max(slot.width, height * aspect);
+        height = width / aspect;
+      }
+    }
+    return {
+      slot,
+      big: { left: cx - width / 2, top: bigTop, width, height },
+    };
+  }
+  const boxStyle = (r) => ({
+    left: `${r.left}px`,
+    top: `${r.top}px`,
+    width: `${r.width}px`,
+    height: `${r.height}px`,
+  });
+  async function flyVideoBox(from, to, duration) {
+    Object.assign(videoBox.style, boxStyle(to));
+    if (!duration) return;
+    try {
+      await videoBox.animate([boxStyle(from), boxStyle(to)], {
+        duration,
+        easing: "cubic-bezier(.45,0,.2,1)",
+      }).finished;
+    } catch (error) { /* bị hủy: bỏ qua */ }
+  }
+  // Giảm nhạc nền khi video có tiếng, rồi trả lại như cũ.
+  function rampMusic(target, duration) {
+    if (!backgroundMusic) return;
+    clearInterval(musicTimer);
+    const from = backgroundMusic.volume,
+      startedAt = performance.now();
+    musicTimer = setInterval(() => {
+      const t = Math.min(1, (performance.now() - startedAt) / duration);
+      backgroundMusic.volume = Math.max(0, Math.min(1, from + (target - from) * t));
+      if (t === 1) clearInterval(musicTimer);
+    }, 40);
+  }
+  async function playFilmVideo(currentRun) {
+    if (!hasFilmVideo || !videoBox || !filmVideo) return;
+    const reduced = motionPreference.matches;
+    const originalVolume = backgroundMusic ? backgroundMusic.volume : 0.5;
+    videoActive = true;
+    try {
+      let { slot, big } = videoRects();
+      videoBox.hidden = false;
+      videoBox.style.opacity = 1;
+      videoSkip.style.visibility = "";
+      Object.assign(videoBox.style, boxStyle(slot));
+      $("announcer").textContent = "Đang phát video kỷ niệm của lớp.";
+      const finished = new Promise((resolve) => {
+        filmVideo.addEventListener("ended", resolve, { once: true });
+        filmVideo.addEventListener("error", resolve, { once: true });
+        videoSkip.addEventListener("click", resolve, { once: true });
+      });
+      filmVideo.currentTime = 0;
+      const playback = filmVideo.play().catch(() => {
+        // Trình duyệt chặn phát có tiếng: thử lại không tiếng.
+        filmVideo.muted = true;
+        return filmVideo.play();
+      });
+      const opened = flyVideoBox(slot, big, reduced ? 0 : 700);
+      const started = await playback.then(() => true, () => false);
+      if (started && !filmVideo.muted) rampMusic(0, 450);
+      await opened;
+      if (started && currentRun === runId) await finished;
+      filmVideo.pause();
+      if (currentRun !== runId) return;
+      // Thu nhỏ về đúng khung ảnh rồi hòa vào thước phim.
+      videoSkip.style.visibility = "hidden";
+      const origin = film.getBoundingClientRect();
+      const now = videoBox.getBoundingClientRect();
+      const from = {
+        left: now.left - origin.left,
+        top: now.top - origin.top,
+        width: now.width,
+        height: now.height,
+      };
+      ({ slot } = videoRects());
+      await flyVideoBox(from, slot, reduced ? 0 : 850);
+      try {
+        await videoBox.animate([{ opacity: 1 }, { opacity: 0 }], {
+          duration: reduced ? 1 : 300,
+          fill: "forwards",
+        }).finished;
+      } catch (error) { /* bỏ qua */ }
+    } finally {
+      videoBox.hidden = true;
+      videoBox.style.opacity = "";
+      videoBox.getAnimations().forEach((animation) => animation.cancel());
+      filmVideo.pause();
+      rampMusic(originalVolume, 900);
+      videoActive = false;
+      lastInteraction = performance.now();
+      setPaused(reduced);
+      $("announcer").textContent =
+        "Thước phim kỷ niệm. Kéo hoặc vuốt để xem ảnh; phim sẽ tiếp tục sau 2 giây không tương tác.";
+    }
   }
   async function playIntro() {
     const currentRun = ++runId;
@@ -1165,9 +1327,9 @@
       releaseCollageCache();
       film.hidden = false;
       film.inert = false;
-      filmOffset = 0;
+      filmOffset = hasFilmVideo ? videoCenterOffset() : 0;
       lastInteraction = -Infinity;
-      setPaused(reduced);
+      setPaused(reduced || hasFilmVideo);
       scene = "film";
       experience.dataset.scene = "film";
       resizeCanvas();
@@ -1184,6 +1346,14 @@
           easing: "ease-out",
         }),
       ]);
+      if (hasFilmVideo) {
+        try {
+          await playFilmVideo(currentRun);
+        } catch (error) {
+          console.warn("Không phát được video kỷ niệm.", error);
+        }
+        if (currentRun !== runId) return;
+      }
       $("announcer").textContent =
         "Thước phim kỷ niệm. Kéo hoặc vuốt để xem ảnh; phim sẽ tiếp tục sau 2 giây không tương tác.";
     } catch (error) {
@@ -1223,6 +1393,7 @@
     if (gift?.film.enabled === false) return;
     if (gift?.film.photos.length) {
       customPhotos = true;
+      hasFilmVideo = false;
       PHOTO_SOURCES = gift.film.photos.slice();
       filmPhotos.splice(0, filmPhotos.length, ...PHOTO_SOURCES.map(src => ({ src, filmWidth: 600 })));
     }

@@ -30,7 +30,7 @@
     {
       src: "assets/images/intro-3.jpg",
       alt: "Cả lớp mặc áo xanh chụp ảnh chung ngoài sân trường",
-      caption: " Cùng nhau tạo nên những kỷ niệm tươi đẹp với nhau ♡"
+      caption: "Cùng nhau tạo nên những kỷ niệm tươi đẹp với nhau ♡"
     }
   ];
 

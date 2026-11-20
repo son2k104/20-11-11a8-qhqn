@@ -278,3 +278,44 @@
     transition: none;
   }
 }
+
+/* Video kỷ niệm: hiện lớn ở giữa thước phim rồi thu nhỏ vào đúng khung ảnh. */
+#experience .film-video-box {
+  position: absolute;
+  z-index: 6;
+  margin: 0;
+  overflow: hidden;
+  border-radius: 4px;
+  background: #2a1016;
+  box-shadow:
+    0 0 0 5px #fff7df,
+    0 18px 50px #6b2a3d66,
+    0 0 44px #ffd9a199;
+  pointer-events: auto;
+}
+#experience .film-video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background: #2a1016;
+}
+#experience .film-video-skip {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  padding: 5px 14px;
+  border: 1px solid #fff7dfaa;
+  border-radius: 999px;
+  background: #3a1a2299;
+  color: #fff7df;
+  font: 13px/1.2 Georgia, "Times New Roman", serif;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+#experience .film-video-skip:hover,
+#experience .film-video-skip:focus-visible {
+  background: #3a1a22cc;
+  outline: 2px solid #ffd8b2;
+  outline-offset: 2px;
+}
